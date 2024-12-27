@@ -4,15 +4,12 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   transform: {
-    '^.+\\.ts?$': 'ts-jest'
+    '^.+\\.ts$': ['ts-jest', {
+      tsconfig: 'tsconfig.jest.json'
+    }]
   },
   moduleFileExtensions: ['ts', 'js'],
-  testMatch: ['**/*.test.ts'],
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.jest.json'
-    }
-  }
+  testMatch: ['**/*.test.ts']
 };
 
 export default config;
