@@ -30,4 +30,8 @@ describe("add", () => {
   it("supports delimiters of any length", () => {
     expect(calculator.add("//[***]\n1***2***3")).toBe(6);
   });
+
+  it("throws error for negative numbers", () => {
+    expect(() => calculator.add("1,-2,3")).toThrow("Negatives not allowed: -2");
+  });
 });

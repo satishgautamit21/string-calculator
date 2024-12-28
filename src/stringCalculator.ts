@@ -18,9 +18,14 @@ export class StringCalculator {
         numbers = numbers.slice(delimiterMatch[0].length);
       }
     }
-    
+
     const numberList = numbers.split(delimiter).map(n => parseInt(n, 10) || 0);
     
+    const negatives = numberList.filter(n => n < 0);
+    
+    if (negatives.length > 0) {
+      throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
+    }
     return numberList.reduce((sum, n) => sum + n, 0);
   }
 }
