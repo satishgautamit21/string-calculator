@@ -1,13 +1,20 @@
 export class StringCalculator {
-    add(numbers: string): number {
-      if (!numbers) return 0;
+  add(numbers: string): number {
 
-      let delimiter = /,|\n/;
     
+    if (!numbers) return 0;
+
+    let delimiter = /,|\n/;
+  
     if (numbers.startsWith("//")) {
-      const delimiterMatch = numbers.match(/^\/\/(.+)\n/);
+      const delimiterMatch = numbers.match(/^\/\/(\[.*?\])+\n/);
+      
       if (delimiterMatch) {
-        delimiter = new RegExp(delimiterMatch[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+        const delimiters = delimiterMatch[1]
+          .match(/\[(.*?)\]/g) // Extract delimiters inside []
+          ?.map(d => d.slice(1, -1).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) || [];
+        
+        delimiter = new RegExp(delimiters.join('|'));
         numbers = numbers.slice(delimiterMatch[0].length);
       }
     }
