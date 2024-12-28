@@ -26,6 +26,7 @@ export class StringCalculator {
     if (negatives.length > 0) {
       throw new Error(`Negatives not allowed: ${negatives.join(", ")}`);
     }
-    return numberList.reduce((sum, n) => sum + n, 0);
+
+    return numberList.filter(n => n <= 1000).reduce((sum, n) => sum + n, 0);
   }
 }
